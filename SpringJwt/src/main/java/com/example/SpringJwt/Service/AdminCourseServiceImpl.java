@@ -3,6 +3,7 @@ package com.example.SpringJwt.Service;
 import com.example.SpringJwt.Dto.UserCourseDTO;
 import com.example.SpringJwt.Dto.UserCourseResponseDTO;
 import com.example.SpringJwt.Model.Course;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.SpringJwt.Model.User;
 import com.example.SpringJwt.Repository.CourseRepository;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//@Log4j2
+//@Slf4j
 @Service
 public class AdminCourseServiceImpl implements AdminCourseService {
 
@@ -76,4 +79,15 @@ public class AdminCourseServiceImpl implements AdminCourseService {
                 ((Number) row[2]).longValue(), // courseId
                 (String) row[3]               // courseName
         );
-    }}
+    }
+
+    public void deleteUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.getCourses().clear(); // removes entries from join table
+        userRepository.delete(user);
+    }
+
+
+}

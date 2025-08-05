@@ -27,13 +27,19 @@ public class AuthService {
     }
 
     public AuthenticationResponse register(User request) {
+        // Check if username already exists
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new RuntimeException("User already exists");
+        }
+        
+        // Create new user
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(request.getRole());
+
         userRepository.save(user);
-        String jwtToken = jwtsService.generateToken(user);
-        return new AuthenticationResponse(jwtToken);
+        return new AuthenticationResponse("User registered successfully");
     }
 
     public AuthenticationResponse login(User request) {

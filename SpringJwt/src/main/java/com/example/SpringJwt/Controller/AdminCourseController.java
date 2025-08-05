@@ -5,6 +5,7 @@ import com.example.SpringJwt.Dto.UserCourseDTO;
 import com.example.SpringJwt.Model.Course;
 import com.example.SpringJwt.Service.AdminCourseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -61,5 +62,20 @@ public class AdminCourseController {
     public ResponseEntity<List<UserCourseDTO>> getAllUserCourseRegistrations() {
         List<UserCourseDTO> registrations = courseService.getAllUserCourseRegistrations();
         return ResponseEntity.ok(registrations);
-    }}
+    }
+
+    @DeleteMapping("admin/users/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        try {
+            courseService.deleteUser(id); // your service method
+            return ResponseEntity.ok("User deleted successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting user");
+        }
+    }
+
+
+}
 

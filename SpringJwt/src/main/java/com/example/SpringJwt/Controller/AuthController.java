@@ -15,9 +15,14 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody User request) {
-        return ResponseEntity.ok(authService.register(request));
-
+    public ResponseEntity<?> register(@RequestBody User request) {
+      try {
+        //  return ResponseEntity.ok("User registered successfully: " + authService.register(request));
+          authService.register(request);
+          return ResponseEntity.ok("User registered successfully");
+      } catch (RuntimeException e) {
+          return ResponseEntity.badRequest().body(e.getMessage());
+      }
 
     }
 @PostMapping("/login")

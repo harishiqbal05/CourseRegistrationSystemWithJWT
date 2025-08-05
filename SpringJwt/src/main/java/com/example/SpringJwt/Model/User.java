@@ -28,8 +28,9 @@ public class User implements UserDetails {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
+
 
     @Column(name = "password")
     private String password;

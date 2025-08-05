@@ -12,4 +12,6 @@ public interface AdminCourseService {
     Course getCourseById(Long id);
     List<Course> getAllCourses();
     List<UserCourseDTO> getAllUserCourseRegistrations();
+
+    void deleteUser(Long id);
 }
