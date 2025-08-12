@@ -26,7 +26,7 @@ public class Course {
 
     private String coursefee;
 
-    // ✅ Users who registered
+    //  Users who registered
     @ManyToMany(mappedBy = "courses")
     @JsonIgnore
     private Set<User> users = new HashSet<>();

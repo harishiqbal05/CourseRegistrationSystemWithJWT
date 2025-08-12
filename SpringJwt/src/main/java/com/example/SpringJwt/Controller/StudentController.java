@@ -20,14 +20,8 @@ public class StudentController {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
-    // ✅ View all courses
-//    @GetMapping("/courses")
-//    public ResponseEntity<List<Course>> viewAllCourses() {
-//        List<Course> courses = courseRepository.findAll();
-//        return ResponseEntity.ok(courses);
-//    }
 
-    // ✅ Register for a course (authenticated user)
+    //  Register for a course (authenticated user)
     @PostMapping("/courses/{courseId}/register")
     public ResponseEntity<String> registerCourse(
             @PathVariable Long courseId,

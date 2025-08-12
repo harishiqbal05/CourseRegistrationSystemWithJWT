@@ -19,35 +19,35 @@ public class AdminCourseController {
 
     private final AdminCourseService courseService;
 
-    // ✅ Create Course
+    //  Create Course
     @PostMapping("/admin/courses")
     public ResponseEntity<CourseDTO> createCourse(@RequestBody Course course) {
         Course savedCourse = courseService.createCourse(course);
         return ResponseEntity.ok(CourseDTO.fromEntity(savedCourse));
     }
 
-    // ✅ Update Course
+    // Update Course
     @PutMapping("/admin/courses/{id}")
     public ResponseEntity<CourseDTO> updateCourse(@PathVariable Long id, @RequestBody Course course) {
         Course updated = courseService.updateCourse(id, course);
         return ResponseEntity.ok(CourseDTO.fromEntity(updated));
     }
 
-    // ✅ Delete Course
+    //  Delete Course
     @DeleteMapping("/admin/courses/{id}")
     public ResponseEntity<String> deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);
         return ResponseEntity.ok("Course deleted successfully");
     }
 
-    // ✅ Get Course by ID
+    // Get Course by ID
     @GetMapping("/admin/courses/{id}")
     public ResponseEntity<CourseDTO> getCourseById(@PathVariable Long id) {
         Course course = courseService.getCourseById(id);
         return ResponseEntity.ok(CourseDTO.fromEntity(course));
     }
 
-    // ✅ Get All Courses
+    //  Get All Courses(User also access)
     @GetMapping("/courses/all")
     public ResponseEntity<List<CourseDTO>> getAllCourses() {
         List<CourseDTO> allCourses = courseService.getAllCourses().stream()
@@ -56,7 +56,7 @@ public class AdminCourseController {
         return ResponseEntity.ok(allCourses);
     }
 
-    // ✅ Get All User-Course Registrations (Admin Only)
+    //  Get All User-Course Registrations (Admin Only)
     @GetMapping("/admin/user-courses")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserCourseDTO>> getAllUserCourseRegistrations() {

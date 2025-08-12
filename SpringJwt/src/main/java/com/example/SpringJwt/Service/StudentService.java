@@ -15,10 +15,7 @@ public class StudentService {
 
     private final UserRepository userRepository;
     private final CourseRepository courseRepository;
-//
-//    public List<Course> getAllCourses() {
-//        return courseRepository.findAll();
-//    }
+
 
     public String registerCourse(String username, Long courseId) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
